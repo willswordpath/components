@@ -20,6 +20,15 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(png|jpg|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {}
+                    }
+                ]
+            },
+            {
                 test: /\.scss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
