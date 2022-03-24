@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const outPath = path.resolve(__dirname, 'dist')
+const componentPath = path.resolve(__dirname, '../../components')
 
 module.exports = {
     entry: __dirname + '/src/main.tsx',
@@ -12,6 +13,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.scss'],
+        alias: {
+            components: componentPath
+        }
     },
     module: {
         rules: [

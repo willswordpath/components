@@ -9,7 +9,13 @@
         // "noUnusedParameters": true,
         // "noImplicitAny": true,
         // "noImplicitReturns": true,
-        // "noImplicitThis": true
+        // "noImplicitThis": true,
+        "paths": {
+            "components": [
+                "components"
+            ]
+        },
+        "baseUrl": "./"
     },
     "exclude": [
         "node_modules",
