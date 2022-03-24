@@ -1,0 +1,19 @@
+{
+    "scripts": {
+        "wiki": "webpack serve --open --mode development -c demo/wiki/webpack.config.js"
+    },
+    "dependencies": {
+        "@types/react": "^17.0.40",
+        "@types/react-dom": "^17.0.13",
+        "copy-webpack-plugin": "^10.2.4",
+        "css-loader": "^6.7.1",
+        "mini-css-extract-plugin": "^2.6.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-router-dom": "^6.2.2",
+        "ts-loader": "^9.2.8",
+        "webpack": "^5.70.0",
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^4.7.4"
+    }
+}
