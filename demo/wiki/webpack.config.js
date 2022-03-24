@@ -11,12 +11,12 @@ module.exports = {
         path: outPath,
     },
     resolve: {
-        extensions: ['', '.tsx', '.ts', '.js', '.css'],
+        extensions: ['.tsx', '.ts', '.js', '.scss'],
     },
     module: {
         rules: [
             {
-                test: /\.css$/i,
+                test: /\.scss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
@@ -26,7 +26,8 @@ module.exports = {
                             import: true,
                             url: false,
                         }
-                    }
+                    },
+                    'sass-loader'
                 ]
             },
             {
