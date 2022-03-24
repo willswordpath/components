@@ -1,7 +1,7 @@
 import style from './test.scss'
 style;
 
-import * as React from 'react'
+import React from 'react'
 import { render } from 'react-dom'
 import { App } from 'components/test/app'
 import { HashRouter } from 'react-router-dom'

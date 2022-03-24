@@ -15,7 +15,8 @@
                 "components"
             ]
         },
-        "baseUrl": "./"
+        "baseUrl": "./",
+        "esModuleInterop": true,
     },
     "exclude": [
         "node_modules",
