@@ -5,25 +5,27 @@ import React from 'react';
 // import { WideColumn } from '@teambit/base-ui.layout.page-frame';
 // import { Footer } from '@teambit/wiki.blocks.footer';
 // import { Wiki } from '@teambit/wiki.sections.wiki';
+import { ThemeSwitch } from '../theme-switch'
 
 export function WikiApp() {
   return (
-    // <ThemeSwitcher defaultTheme="dark">
+    <ThemeSwitch initialTheme="dark">
 
-    //   {/* header component */}
-    //   <Header />
+      {/* header component
+      <Header />
 
-    //   <WideColumn>
+      <WideColumn>
         
-    //     {/* <Routes>
-    //       <Route path="/" element={<Wiki />} />
-    //     </Routes> */}
+        <Routes>
+          <Route path="/" element={<Wiki />} />
+        </Routes>
 
-    //     <Footer />
-    //   </WideColumn>
+        <Footer />
+      </WideColumn> */}
 
-    // </ThemeSwitcher>
+      <h1>My Components</h1>
 
-    <h1>My Components</h1>
+    </ThemeSwitch>
+
   );
 }

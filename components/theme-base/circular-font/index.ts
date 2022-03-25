@@ -1,3 +1,2 @@
-import style from './circular-font.module.scss';
-
-export const { circularFont } = style;
+import style from './circular-font.module.scss'
+export const { circularFont } = style
