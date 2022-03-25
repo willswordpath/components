@@ -6,6 +6,9 @@ import React from 'react';
 // import { Footer } from '@teambit/wiki.blocks.footer';
 // import { Wiki } from '@teambit/wiki.sections.wiki';
 import { ThemeSwitch } from '../theme-switch'
+import { Switch } from './switch';
+import style from './trans.scss'
+import classNames from 'classnames'
 
 export function WikiApp() {
   return (
@@ -23,7 +26,8 @@ export function WikiApp() {
         <Footer />
       </WideColumn> */}
 
-      <h1>My Components</h1>
+      <h1 className={classNames(style.trans)}>My Components</h1>
+      <Switch></Switch>
 
     </ThemeSwitch>
 
