@@ -12,7 +12,7 @@ module.exports = {
         path: outPath,
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss'],
+        extensions: ['.tsx', '.ts', '.js' ],
         alias: {
             components: componentPath
         }
@@ -34,11 +34,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            import: true,
-                            url: false,
-                        }
+                        options: { modules: true }
                     },
                     'sass-loader'
                 ]
