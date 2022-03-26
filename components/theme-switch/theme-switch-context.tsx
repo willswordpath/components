@@ -1,10 +1,11 @@
 import { ComponentType, createContext, useContext } from 'react'
-import type { BaseThemeProps } from '../theme-base'
+import type { BaseThemeSchema } from '../theme-base'
 
 export type ThemeName = 'light' | 'dark'
 
-export type ThemeOption = ComponentType<BaseThemeProps> & {
+export type ThemeOption = {
     themeName: ThemeName
+    override: Partial<BaseThemeSchema>
 }
 
 export interface ThemeSwitchData {

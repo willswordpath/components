@@ -1,1 +1,0 @@
-export { LightTheme } from './light-theme'

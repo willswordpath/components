@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { BaseThemeProps } from '../theme-base'
+import { BaseTheme, BaseThemeProps, LightTheme, DarkTheme } from '../theme-base'
 import type { ThemeOption, ThemeName, ThemeSwitchData } from './theme-switch-context'
 import { themeSwitchContext } from './theme-switch-context'
-import { LightTheme } from '../theme-light'
-import { DarkTheme } from '../theme-dark'
 
 export interface ThemeSwitchProps extends BaseThemeProps {
-    themes?: ThemeOption[]
+    availableThemes?: ThemeOption[]
     initialTheme?: ThemeName
 }
 
@@ -20,26 +18,27 @@ export const basicThemes: ThemeOption[] = [
 // setting it through a function resolves this
 
 export function ThemeSwitch({
-    themes: availableThemes = basicThemes,
+    availableThemes = basicThemes,
     initialTheme,
     children,
+    override,
     ...props
 }: ThemeSwitchProps) {
 
     // workaround (*) function state-initializer
-    const [Theme, setTheme] = useState<ThemeOption>(() => (
+    const [theme, setTheme] = useState<ThemeOption>(() => (
         availableThemes.find(x => x.themeName === initialTheme) || availableThemes[0]
     ))
 
     const switchData: ThemeSwitchData = {
-        current: Theme,
+        current: theme,
         options: availableThemes,
         // workaround (*) function state-setter
-        setTheme: theme => setTheme((last: ThemeOption) => theme)
+        setTheme: theme => setTheme((_: ThemeOption) => theme)
     }
 
     return <themeSwitchContext.Provider value={switchData}>
-        <Theme {...props}>{children}</Theme>
+        <BaseTheme override={{...theme.override, ...override}} {...props}>{children}</BaseTheme>
     </themeSwitchContext.Provider>
 
 }
