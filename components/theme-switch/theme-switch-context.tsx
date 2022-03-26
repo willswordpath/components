@@ -1,4 +1,4 @@
-import { ComponentType, createContext, useContext } from 'react'
+import { createContext, useContext } from 'react'
 import type { BaseThemeSchema } from '../theme-base'
 
 export type ThemeName = 'light' | 'dark'

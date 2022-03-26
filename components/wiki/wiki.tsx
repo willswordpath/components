@@ -10,9 +10,15 @@ import { Switch } from './switch';
 import style from './trans.scss'
 import classNames from 'classnames'
 
+const paddingLeftRight = '20px'
+
 export function WikiApp() {
   return (
-    <ThemeSwitch initialTheme="dark">
+    <ThemeSwitch initialTheme="dark" style={{
+      paddingLeft: paddingLeftRight,
+      paddingRight: paddingLeftRight,
+      transition: '1s'
+    }}>
 
       {/* header component
       <Header />

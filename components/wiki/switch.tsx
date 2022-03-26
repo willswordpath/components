@@ -14,9 +14,7 @@ export function Switch() {
             list.map((x, index) => <div key={index} onClick={() => {
                 swd?.setTheme(x)
             }}>
-                <h2 className={classNames(style.trans)} style={{
-                    background: thme.backgroundColor
-                }}>{x.themeName}</h2>
+                <h2 className={classNames(style.trans)}>{x.themeName}</h2>
             </div>)
         }
     </>
