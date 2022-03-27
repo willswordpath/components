@@ -1,11 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { WikiApp } from 'components/wiki'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 render(
-    <HashRouter>
+    <BrowserRouter>
         <WikiApp />
-    </HashRouter>
+    </BrowserRouter>
     , document.getElementById('root')
 )

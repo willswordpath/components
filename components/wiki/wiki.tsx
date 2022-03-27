@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Switch, Route } from 'react-router-dom';
+import { Switch as RouteSwitch, Route } from 'react-router-dom';
 // import { ThemeSwitcher } from '@teambit/design.themes.theme-toggler';
 import { Header } from '../block-header'
 // import { WideColumn } from '@teambit/base-ui.layout.page-frame';
@@ -13,15 +13,15 @@ import classNames from 'classnames'
 const paddingLeftRight = '20px'
 
 export function WikiApp() {
-  return (
-    <ThemeSwitch initialTheme="dark" style={{
-      paddingLeft: paddingLeftRight,
-      paddingRight: paddingLeftRight,
-      transition: '1s'
-    }}>
+    return (
+        <ThemeSwitch initialTheme="dark" style={{
+            paddingLeft: paddingLeftRight,
+            paddingRight: paddingLeftRight,
+            transition: '1s'
+        }}>
 
-      <Header />
-      {/* header component
+            <Header />
+            {/* header component
 
       <WideColumn>
         
@@ -32,10 +32,24 @@ export function WikiApp() {
         <Footer />
       </WideColumn> */}
 
-      <h1 className={classNames(style.trans)}>My Components</h1>
-      <Switch></Switch>
 
-    </ThemeSwitch>
 
-  );
+            <RouteSwitch>
+
+                <Route path="/wiki">
+                    <h1 className={classNames(style.trans)}>Wiki</h1>
+                </Route>
+                <Route path="/people">
+                    <h1 className={classNames(style.trans)}>People of React and TypeScript</h1>
+                </Route>
+
+                <Route path="/">
+                    <h1 className={classNames(style.trans)}>My Components</h1>
+                    <Switch></Switch>
+                </Route>
+            </RouteSwitch>
+
+        </ThemeSwitch>
+
+    );
 }

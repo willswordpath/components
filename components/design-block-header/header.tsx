@@ -3,8 +3,9 @@ import style from './header.scss';
 import React, { ComponentType } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { NavigationMenu, NavigationMenuProps, NavLinkType } from '../navig-menu';
 
-import { NavigationMenu, NavigationMenuProps, NavLinkType } from '@teambit/design.ui.navigation.menu';
+
 import { Logo, LogoProps } from '@teambit/design.ui.brand.logo';
 import { wideColumn } from '@teambit/base-ui.layout.page-frame';
 
