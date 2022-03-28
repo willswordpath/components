@@ -1,30 +1,34 @@
 import React, { forwardRef } from 'react';
-import { Link } from 'react-router-dom'
-import type { LinkProps } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import type { NavLinkProps } from 'react-router-dom'
 import classNames from 'classnames';
 import style from './tab-link.scss';
 
-export type TabLinkProps = {
-    borderPosition?: 'top' | 'bottom' | 'left' | 'right';
-} & LinkProps;
+export interface TabLinkProps extends NavLinkProps {
+    borderPosition?: 'top' | 'bottom' | 'left' | 'right'
+    /**
+     * add styling attributes to the rendered element when it matches the current URL
+     */
+    activeClassName?: string;
+}
 
 /**
- * A component used to display a nav link, usually used in headers or tabs to display a specific active ui
- *   class to apply when `href` matches the current location
- *   activeClassName?: string;
+ * a component used to display a nav link, usually used in headers or tabs to display a specific active ui
  */
 export const TabLink = forwardRef<HTMLAnchorElement, TabLinkProps>(
-    ({ className, /*activeClassName,*/ children, borderPosition = 'bottom', ...rest }: TabLinkProps, ref) => {
+    ({ className, activeClassName, children, borderPosition = 'bottom', ...restProps }: TabLinkProps, ref) => {
         return (
-            <Link
+            <NavLink
                 data-position={borderPosition}
-                className={classNames(style.tabLink, className)}
-                // activeClassName={classNames(style.active, activeClassName)}
-                {...rest}
+                className={isActive => classNames(style.tabLink, className,
+                    isActive && style.active,
+                    isActive && activeClassName
+                )}
+                {...restProps}
                 ref={ref}
             >
                 <div>{children}</div>
-            </Link>
+            </NavLink>
         );
     }
 );
