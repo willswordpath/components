@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import style from './tab-link.scss';
 
 export interface TabLinkProps extends NavLinkProps {
-    borderPosition?: 'top' | 'bottom' | 'left' | 'right'
+    activeBorderPosition?: 'top' | 'bottom' | 'left' | 'right' | 'around'
     /**
      * add styling attributes to the rendered element when it matches the current URL
      */
@@ -16,10 +16,10 @@ export interface TabLinkProps extends NavLinkProps {
  * a component used to display a nav link, usually used in headers or tabs to display a specific active ui
  */
 export const TabLink = forwardRef<HTMLAnchorElement, TabLinkProps>(
-    ({ className, activeClassName, children, borderPosition = 'bottom', ...restProps }: TabLinkProps, ref) => {
+    ({ className, activeClassName, activeBorderPosition = 'bottom', children, ...restProps }: TabLinkProps, ref) => {
         return (
             <NavLink
-                data-position={borderPosition}
+                data-position={activeBorderPosition}
                 className={isActive => classNames(style.tabLink, className,
                     isActive && style.active,
                     isActive && activeClassName

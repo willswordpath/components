@@ -50,7 +50,6 @@ export function NavigationMenu({ links = [], className, Link = TabLink, ...rest 
                 return (
                     <Link
                         key={link.href}
-                        className={style.link}
                         activeClassName={style.active}
                         // TODO
                         to={link.href || '/'}
