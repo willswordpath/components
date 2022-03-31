@@ -1,0 +1,26 @@
+.item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 24px;
+  > div:first-child {
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+}
+
+.active {
+  background-color: var(--bit-accent-bg, #eceaff);
+  cursor: unset;
+  &:hover {
+    background-color: var(--bit-accent-bg, #eceaff);
+  }
+}
+
+.orgImg {
+  background-color: var(--bit-bg-color, #ffffff);
+  border: 1px solid var(--bit-border-color-lightest, #ededed);
+  > span {
+    display: flex;
+  }
+}
