@@ -1,13 +1,13 @@
-import React from "react"
-import { useThemeSwitch } from "../theme-switch"
-import { useTheme } from '../theme-base'
+import React from 'react'
+import { useThemeSwitch } from '../theme-switch'
+// import { useTheme } from '../theme-base'
 import style from './trans.scss'
 import classNames from 'classnames'
 
 export function Switch() {
     const swd = useThemeSwitch()
     const list = swd?.options || []
-    const thme = useTheme()
+    // const thme = useTheme()
 
     return <>
         {

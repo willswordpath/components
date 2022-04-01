@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "wiki": "webpack serve --open --mode development -c demo/wiki/webpack.config.js"
+        "wiki": "webpack serve --open --mode development -c demo/wiki/webpack.mjs"
     },
     "dependencies": {
         "@types/react": "^17.0.40",

@@ -6,9 +6,9 @@ import { WideColumn } from '../page-column'
 import { Footer } from '@teambit/wiki.blocks.footer'
 import { Wiki } from '@teambit/wiki.sections.wiki'
 import { ThemeSwitch } from '../theme-switch'
-import { Switch } from './switch'
-import style from './trans.scss'
-import classNames from 'classnames'
+// import { Switch } from './switch'
+// import style from './trans.scss'
+// import classNames from 'classnames'
 
 
 export function WikiApp() {
