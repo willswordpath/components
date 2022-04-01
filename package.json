@@ -30,7 +30,7 @@
         "@teambit/design.ui.hoverable": "^1.0.11",
         "@teambit/wiki.blocks.footer": "^0.0.25",
         "@teambit/wiki.blocks.header": "^0.0.41",
-        "@testing-library/react": "12.0.0",
-        "path": "^0.12.7"
+        "@teambit/wiki.sections.wiki": "^1.90.7",
+        "@testing-library/react": "12.0.0"
     }
 }

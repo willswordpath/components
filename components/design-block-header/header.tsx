@@ -7,7 +7,7 @@ import { NavigationMenu, NavigationMenuProps, NavLinkType } from '../navig-menu'
 
 
 import { Logo, LogoProps } from '@teambit/design.ui.brand.logo';
-import { wideColumn } from '@teambit/base-ui.layout.page-frame';
+import { wideColumn } from '../page-column';
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
     /**
