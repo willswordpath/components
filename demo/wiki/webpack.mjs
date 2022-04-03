@@ -50,8 +50,8 @@ export default {
                         loader: 'css-loader',
                         options: {
                             modules: {
-                                // Development, NO Hash
-                                localIdentName: '[path]_[name]_[local]'
+                                localIdentName: '[name]_[local]_[hash]',
+                                localIdentHashDigestLength: 10
                             }
                         }
                     },

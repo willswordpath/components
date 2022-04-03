@@ -1,7 +1,7 @@
-import React from 'react';
-import type { ReactNode } from 'react';
-import classNames from 'classnames';
-import style from './page-frame.module.scss';
+import React from 'react'
+import type { ReactNode } from 'react'
+import classNames from 'classnames'
+import style from './page-frame.scss'
 
 export interface WideColumnProps extends React.HTMLAttributes<HTMLDivElement> {
     children?: ReactNode
@@ -9,5 +9,5 @@ export interface WideColumnProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function WideColumn({ children, className, ...rest }: WideColumnProps) {
-    return <div className={classNames(style.wideColumn, className)} {...rest}>{children}</div>;
+    return <div className={classNames(style.wideColumn, className)} {...rest}>{children}</div>
 }
