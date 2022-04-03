@@ -3,7 +3,7 @@ import { Switch as RouteSwitch, Route } from 'react-router-dom'
 // import { ThemeSwitcher } from '@teambit/design.themes.theme-toggler';
 import { Header } from '../block-header'
 import { WideColumn } from '../page-column'
-import { Footer } from '@teambit/wiki.blocks.footer'
+import { Footer } from '../block-footer'
 import { Wiki } from '@teambit/wiki.sections.wiki'
 import { ThemeSwitch } from '../theme-switch'
 // import { Switch } from './switch'
@@ -25,7 +25,9 @@ export function WikiApp() {
                     </Route>
                 </RouteSwitch>
 
-                <Footer />
+                <Footer>
+                    <h1>Test Footer Content</h1>
+                </Footer>
             </WideColumn>
 
 
