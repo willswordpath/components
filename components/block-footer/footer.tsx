@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Footer as DesignFooter } from '@teambit/design.blocks.footer'
+import { Footer as DesignFooter } from '../design-block-footer'
 import { footerLinks } from './footer-links'
 
 export type FooterProps = {

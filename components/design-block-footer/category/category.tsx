@@ -1,8 +1,8 @@
 import React from 'react'
 import { IconLink, IconLinkProps } from '@teambit/design.ui.navigation.icon-link'
-import styles from './category.module.scss'
+import styles from './category.scss'
 
-export type CategoryProps = {
+export interface CategoryProps extends React.HTMLAttributes<HTMLDivElement> {
     /**
      * a category title to be rendered above the link list.
      */
@@ -11,7 +11,7 @@ export type CategoryProps = {
      * a list of links to show in the category
      */
     links: IconLinkProps[];
-} & React.HTMLAttributes<HTMLDivElement>;
+}
 
 export function Category({ title, links, ...rest }: CategoryProps) {
     return (

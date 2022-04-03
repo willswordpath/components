@@ -4,7 +4,7 @@ import { Switch as RouteSwitch, Route } from 'react-router-dom'
 import { Header } from '../block-header'
 import { WideColumn } from '../page-column'
 import { Footer } from '../block-footer'
-import { Wiki } from '@teambit/wiki.sections.wiki'
+import { Wiki } from '../section-wiki'
 import { ThemeSwitch } from '../theme-switch'
 // import { Switch } from './switch'
 // import style from './trans.scss'
@@ -29,23 +29,6 @@ export function WikiApp() {
                     <h1>Test Footer Content</h1>
                 </Footer>
             </WideColumn>
-
-
-
-            {/* <RouteSwitch>
-
-                <Route path="/wiki">
-                    <h1 className={classNames(style.trans)}>Wiki</h1>
-                </Route>
-                <Route path="/people">
-                    <h1 className={classNames(style.trans)}>People of React and TypeScript</h1>
-                </Route>
-
-                <Route path="/">
-                    <h1 className={classNames(style.trans)}>My Components</h1>
-                    <Switch></Switch>
-                </Route>
-            </RouteSwitch> */}
 
         </ThemeSwitch>
 
