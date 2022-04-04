@@ -12,7 +12,7 @@ export interface Route {
     /** absolute path (including baseUrl) */
     absPath: string;
     component: ReactNode;
-    plugins: Record<string, unknown>[];
+    plugins: Record<string, unknown>
     displayInSidebar?: boolean;
 }
 
@@ -33,15 +33,21 @@ interface TreeNode {
 }
 
 export class DocsRoutes {
-    constructor(readonly tree: DocsRoute[], readonly basePath?: string) { }
+    constructor(
+        readonly tree: DocsRoute[],
+        readonly basePath?: string
+    ) { }
+
+    static from(routes: DocsRoute[], basePath = '/') {
+        return new DocsRoutes(routes, basePath)
+    }
 
     /**
      * get the list of routes to include.
+     * DocsRoute[] to Route[]
      */
     getRoutes(): Route[] {
-        return this.tree.flatMap((route) => {
-            return this.computeRoutes(route)
-        })
+        return this.tree.flatMap((route) => this.computeRoutes(route))
     }
 
     /**
@@ -95,52 +101,50 @@ export class DocsRoutes {
         return urlJoin(this.basePath, path)
     }
 
+    /**
+     * flat a {@link DocsRoute} to an array of {@link Route}s
+     * @param currentRoute recursive operation node
+     * @param parentPath url path prefix of each recurse instance
+     * @returns flatten routes
+     */
     private computeRoutes(currentRoute: DocsRoute, parentPath?: string): Route[] {
         const thisPath = this.accumulatePath(currentRoute.path, parentPath)
 
         if (currentRoute.children) {
-            const { config, overview } = currentRoute
-            const categoryRoute = currentRoute.component
-                ? [
-                    {
-                        title: currentRoute.title,
-                        component: currentRoute.component,
-                        path: this.accumulatePath(currentRoute.path, thisPath),
-                        absPath: this.toAbs(this.accumulatePath(currentRoute.path, thisPath)),
-                        description: currentRoute.description,
-                        plugins: currentRoute.plugins || ([] as any),
-                    },
-                ]
-                : []
-            const configRoutes = config
-                ? [
-                    {
-                        title: config.title,
-                        description: config.description,
-                        path: this.accumulatePath(config.path, thisPath),
-                        absPath: this.toAbs(this.accumulatePath(config.path, thisPath)),
-                        component: config.component,
-                        plugins: currentRoute.plugins || ([] as any),
-                    },
-                ]
-                : []
-            const overviewRoutes = overview
-                ? [
-                    {
-                        title: overview.title,
-                        description: overview.description,
-                        path: this.accumulatePath(overview.path, thisPath),
-                        absPath: this.toAbs(this.accumulatePath(overview.path, thisPath)),
-                        component: overview.component,
-                        plugins: currentRoute.plugins || [],
-                    },
-                ]
-                : []
+            const { component, config, overview } = currentRoute
+
+            /**
+             * contains categoryRoute of component, configRoute of config, overviewRoute of overview
+             */
+            const extraRoutes: Route[] = []
+            component && extraRoutes.push({
+                title: currentRoute.title,
+                description: currentRoute.description,
+                path: this.accumulatePath(currentRoute.path, thisPath),
+                absPath: this.toAbs(this.accumulatePath(currentRoute.path, thisPath)),
+                component: currentRoute.component,
+                plugins: currentRoute.plugins || {},
+            })
+            config && extraRoutes.push({
+                title: config.title,
+                description: config.description,
+                path: this.accumulatePath(config.path, thisPath),
+                absPath: this.toAbs(this.accumulatePath(config.path, thisPath)),
+                component: config.component,
+                plugins: currentRoute.plugins || {},
+            })
+            overview && extraRoutes.push({
+                title: overview.title,
+                description: overview.description,
+                path: this.accumulatePath(overview.path, thisPath),
+                absPath: this.toAbs(this.accumulatePath(overview.path, thisPath)),
+                component: overview.component,
+                plugins: currentRoute.plugins || {},
+            })
+
             return currentRoute.children
                 .flatMap((child) => this.computeRoutes(child, thisPath))
-                .concat(configRoutes)
-                .concat(overviewRoutes)
-                .concat(categoryRoute)
+                .concat(extraRoutes)
         }
 
         return [
@@ -151,12 +155,8 @@ export class DocsRoutes {
                 path: thisPath,
                 absPath: this.toAbs(thisPath),
                 component: currentRoute.component,
-                plugins: currentRoute.plugins || ([] as any),
+                plugins: currentRoute.plugins || {},
             },
         ]
-    }
-
-    static from(routes: DocsRoute[], basePath = '/') {
-        return new DocsRoutes(routes, basePath)
     }
 }
