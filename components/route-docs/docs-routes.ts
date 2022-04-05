@@ -20,12 +20,16 @@ interface Payload {
     icon: string | undefined;
     open: boolean | undefined;
     title: string;
-    configPath: string | undefined;
-    overviewPath: string | undefined;
-    path: string;
+    absPath: string;
+    configAbsPath: string | undefined;
+    overviewAbsPath: string | undefined;
     displayInSidebar: boolean | undefined;
 }
 
+/**
+ * another representation of {@link DocsRoute}
+ * with path absolutralized
+ */
 interface TreeNode {
     id: string
     payload: Payload
@@ -34,7 +38,7 @@ interface TreeNode {
 
 export class DocsRoutes {
     constructor(
-        readonly tree: DocsRoute[],
+        readonly branches: DocsRoute[],
         readonly basePath?: string
     ) { }
 
@@ -65,7 +69,7 @@ export class DocsRoutes {
      * DocsRoute[] to Route[]
      */
     getRoutes(): Route[] {
-        return this.tree.flatMap((route) => this.computeRoutes(route))
+        return this.branches.flatMap((route) => this.computeRoutes(route))
     }
 
     /**
@@ -74,40 +78,37 @@ export class DocsRoutes {
     toSideBarTree() {
         return {
             id: '',
-            children: this.tree.map((node) => this.computeTreeNode(node, this.basePath)),
+            children: this.branches.map((docsRoute) => this.computeTreeNode(docsRoute, this.basePath)),
         }
     }
 
-    private computePayload(docRoute: DocsRoute, parentPath?: string): Payload {
-        // basePath should be included in the parent path
-        const thisPath = DocsRoutes.accumulatePath(docRoute.path, parentPath)
+    /**
+     * converts a {@link DocsRoute} into a {@link TreeNode}
+     */
+    private computeTreeNode(docsRoute: DocsRoute, parentAbsPath?: string): TreeNode {
+        // absPath = / (basePath / _parentPath)? / docsRoute.path
+        // basePath should be included in the parentAbsPath
+        const absPath = DocsRoutes.accumulatePath(docsRoute.path, parentAbsPath)
 
-        return {
-            icon: docRoute.icon,
-            open: docRoute.open,
-            title: docRoute.title,
-            configPath: docRoute.config?.path && DocsRoutes.accumulatePath(docRoute.config.path, thisPath),
-            overviewPath: docRoute.overview?.path && DocsRoutes.accumulatePath(docRoute.overview.path, thisPath),
-            path: thisPath,
-            displayInSidebar: docRoute.displayInSidebar,
-        }
-    }
-
-    private computeTreeNode(treeNode: DocsRoute, parentPath?: string): TreeNode {
-        if (treeNode.children) {
-            return {
-                id: treeNode.path,
-                children: treeNode.children.map((child) =>
-                    this.computeTreeNode(child, DocsRoutes.accumulatePath(treeNode.path, parentPath))
-                ),
-                payload: this.computePayload(treeNode, parentPath),
-            }
+        const payload: Payload = {
+            icon: docsRoute.icon,
+            open: docsRoute.open,
+            title: docsRoute.title,
+            absPath,
+            configAbsPath: docsRoute.config?.path && DocsRoutes.accumulatePath(docsRoute.config.path, absPath),
+            overviewAbsPath: docsRoute.overview?.path && DocsRoutes.accumulatePath(docsRoute.overview.path, absPath),
+            displayInSidebar: docsRoute.displayInSidebar,
         }
 
-        return {
-            id: treeNode.path,
-            payload: this.computePayload(treeNode, parentPath),
+        const treeNode: TreeNode = {
+            id: docsRoute.path,
+            payload
         }
+
+        if (docsRoute.children)
+            treeNode.children = docsRoute.children.map((docsRoute) => this.computeTreeNode(docsRoute, absPath))
+
+        return treeNode
     }
 
     /**
