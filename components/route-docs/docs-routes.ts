@@ -38,8 +38,26 @@ export class DocsRoutes {
         readonly basePath?: string
     ) { }
 
+    /**
+     * constructor wrapper provides default parameters
+     */
     static from(routes: DocsRoute[], basePath = '/') {
         return new DocsRoutes(routes, basePath)
+    }
+
+    /**
+     * single purpose compared to urlJoin: allow parameter parentPath being undefined
+     */
+    private static accumulatePath(currentPath: string, parentPath?: string) {
+        return parentPath ? urlJoin(parentPath, currentPath) : currentPath
+    }
+
+    /**
+     * @returns absPath = / basePath? / path
+     */
+    private toAbs(path: string) {
+        if (!this.basePath) return path
+        return urlJoin(this.basePath, path)
     }
 
     /**
@@ -62,21 +80,17 @@ export class DocsRoutes {
 
     private computePayload(docRoute: DocsRoute, parentPath?: string): Payload {
         // basePath should be included in the parent path
-        const thisPath = this.accumulatePath(docRoute.path, parentPath)
+        const thisPath = DocsRoutes.accumulatePath(docRoute.path, parentPath)
 
         return {
             icon: docRoute.icon,
             open: docRoute.open,
             title: docRoute.title,
-            configPath: docRoute.config?.path && this.accumulatePath(docRoute.config.path, thisPath),
-            overviewPath: docRoute.overview?.path && this.accumulatePath(docRoute.overview.path, thisPath),
+            configPath: docRoute.config?.path && DocsRoutes.accumulatePath(docRoute.config.path, thisPath),
+            overviewPath: docRoute.overview?.path && DocsRoutes.accumulatePath(docRoute.overview.path, thisPath),
             path: thisPath,
             displayInSidebar: docRoute.displayInSidebar,
         }
-    }
-
-    private accumulatePath(currentPath: string, parentPath?: string) {
-        return parentPath ? urlJoin(parentPath, currentPath) : currentPath
     }
 
     private computeTreeNode(treeNode: DocsRoute, parentPath?: string): TreeNode {
@@ -84,7 +98,7 @@ export class DocsRoutes {
             return {
                 id: treeNode.path,
                 children: treeNode.children.map((child) =>
-                    this.computeTreeNode(child, this.accumulatePath(treeNode.path, parentPath))
+                    this.computeTreeNode(child, DocsRoutes.accumulatePath(treeNode.path, parentPath))
                 ),
                 payload: this.computePayload(treeNode, parentPath),
             }
@@ -96,11 +110,6 @@ export class DocsRoutes {
         }
     }
 
-    private toAbs(path: string) {
-        if (!this.basePath) return path
-        return urlJoin(this.basePath, path)
-    }
-
     /**
      * flat a {@link DocsRoute} to an array of {@link Route}s
      * @param currentRoute recursive operation node
@@ -108,55 +117,50 @@ export class DocsRoutes {
      * @returns flatten routes
      */
     private computeRoutes(currentRoute: DocsRoute, parentPath?: string): Route[] {
-        const thisPath = this.accumulatePath(currentRoute.path, parentPath)
+        // thisPath = / parentPath? / currentPath
+        const thisPath = DocsRoutes.accumulatePath(currentRoute.path, parentPath)
+
+        const { component, config, overview } = currentRoute
+
+        /**
+         * contains categoryRoute of component, configRoute of config, overviewRoute of overview
+         */
+        const thisRoutes: Route[] = []
+        component && thisRoutes.push({
+            title: currentRoute.title,
+            description: currentRoute.description,
+            displayInSidebar: currentRoute.displayInSidebar,
+            path: thisPath,
+            // absPath = / basePath / parentPath? / currentPath
+            absPath: this.toAbs(thisPath),
+            component,
+            plugins: currentRoute.plugins || {},
+        })
+        config && thisRoutes.push({
+            title: config.title,
+            description: config.description,
+            path: DocsRoutes.accumulatePath(config.path, thisPath),
+            // absPath = / basePath / parentPath? / currentPath / configPath
+            absPath: this.toAbs(DocsRoutes.accumulatePath(config.path, thisPath)),
+            component: config.component,
+            plugins: currentRoute.plugins || {},
+        })
+        overview && thisRoutes.push({
+            title: overview.title,
+            description: overview.description,
+            path: DocsRoutes.accumulatePath(overview.path, thisPath),
+            // absPath = / basePath / parentPath? / currentPath / overviewPath
+            absPath: this.toAbs(DocsRoutes.accumulatePath(overview.path, thisPath)),
+            component: overview.component,
+            plugins: currentRoute.plugins || {},
+        })
 
         if (currentRoute.children) {
-            const { component, config, overview } = currentRoute
-
-            /**
-             * contains categoryRoute of component, configRoute of config, overviewRoute of overview
-             */
-            const extraRoutes: Route[] = []
-            component && extraRoutes.push({
-                title: currentRoute.title,
-                description: currentRoute.description,
-                path: this.accumulatePath(currentRoute.path, thisPath),
-                absPath: this.toAbs(this.accumulatePath(currentRoute.path, thisPath)),
-                component: currentRoute.component,
-                plugins: currentRoute.plugins || {},
-            })
-            config && extraRoutes.push({
-                title: config.title,
-                description: config.description,
-                path: this.accumulatePath(config.path, thisPath),
-                absPath: this.toAbs(this.accumulatePath(config.path, thisPath)),
-                component: config.component,
-                plugins: currentRoute.plugins || {},
-            })
-            overview && extraRoutes.push({
-                title: overview.title,
-                description: overview.description,
-                path: this.accumulatePath(overview.path, thisPath),
-                absPath: this.toAbs(this.accumulatePath(overview.path, thisPath)),
-                component: overview.component,
-                plugins: currentRoute.plugins || {},
-            })
-
             return currentRoute.children
                 .flatMap((child) => this.computeRoutes(child, thisPath))
-                .concat(extraRoutes)
+                .concat(thisRoutes)
         }
 
-        return [
-            {
-                title: currentRoute.title,
-                description: currentRoute.description,
-                displayInSidebar: currentRoute.displayInSidebar,
-                path: thisPath,
-                absPath: this.toAbs(thisPath),
-                component: currentRoute.component,
-                plugins: currentRoute.plugins || {},
-            },
-        ]
+        return thisRoutes
     }
 }
