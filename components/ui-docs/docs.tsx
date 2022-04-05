@@ -1,13 +1,17 @@
+import style from './docs.scss'
 import React, { useMemo } from 'react'
 import classNames from 'classnames'
 import { Switch, Route } from 'react-router-dom'
-import { DocsRoute, DocsRoutes } from '@teambit/docs.entities.docs-routes'
-import { Sidebar } from '@teambit/docs.blocks.sidebar'
-import { DocPage } from '@teambit/docs.ui.pages.doc-page'
-import { DocsPlugin } from '@teambit/docs.plugins.docs-plugin'
+
+// import { DocsRoute, DocsRoutes } from '@teambit/docs.entities.docs-routes'
 import { NotFound } from '@teambit/community.ui.pages.errors.not-found'
+
+import { DocsRoute, DocsRoutes } from '../route-docs'
+import { Sidebar } from '../block-sidebar'
+import { DocPage } from '../ui-doc-page'
+import { DocsPlugin } from '../plugin-docs'
+
 import { DocsContext } from './docs-context'
-import styles from './docs.scss'
 
 export interface ContentCategory {
     /**
@@ -45,7 +49,7 @@ export interface DocsProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
     /**
      * array doc plugins to compose.
      */
-    plugins?: DocsPlugin<any, any>[];
+    plugins?: DocsPlugin[];
 }
 
 export function Docs({ contents, primaryLinks = [], baseUrl, plugins = [], className, ...rest }: DocsProps) {
@@ -74,9 +78,9 @@ export function Docs({ contents, primaryLinks = [], baseUrl, plugins = [], class
                 plugins,
             }}
         >
-            <div {...rest} className={classNames(styles.main, className)}>
+            <div {...rest} className={classNames(style.main, className)}>
                 <Sidebar primaryLinks={primaryRoutes.toSideBarTree()} sections={contentRoutes} />
-                <div className={styles.content}>
+                <div className={style.content}>
                     <Switch>
                         {routeArray.map((route, key) => {
                             return (
