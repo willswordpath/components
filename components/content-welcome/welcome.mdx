@@ -1,0 +1,22 @@
+import { Subtitle } from '@teambit/docs.ui.subtitle';
+import { WhatIsBit, Size } from '@teambit/bit.content.what-is-bit';
+import { exampleComponents } from './example-components';
+
+# Welcome to .bit
+
+<Subtitle>Welcome to your component-driven wiki app!</Subtitle>
+
+This is the first **component-driven wiki!** Content pages are MDX components, and you can use any type of component
+from inside any wiki page.
+
+Here is an example using our [What is Bit](https://bit.cloud/teambit/bit/content/what-is-bit) component:
+
+<WhatIsBit size={Size.LARGE} />
+
+<br />
+
+
+{/* import { ComponentCardGroup } from '@teambit/explorer.ui.gallery.component-card-group'; */}
+
+{/* And rendering the component cards we used to compose this wiki:
+<ComponentCardGroup components={exampleComponents} /> */}

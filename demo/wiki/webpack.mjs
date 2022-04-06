@@ -16,7 +16,7 @@ export default {
         path: outPath,
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js' ],
+        extensions: ['.tsx', '.ts', '.js'],
         alias: {
             components: componentPath
         }
@@ -61,6 +61,16 @@ export default {
             {
                 test: /\.tsx?$/i,
                 use: 'ts-loader',
+            },
+            {
+                test: /\.mdx?$/i,
+                use: [
+                    {
+                        loader: '@mdx-js/loader',
+                        /** @type {import('@mdx-js/loader').Options} */
+                        options: {}
+                    }
+                ]
             }
         ],
     },

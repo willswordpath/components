@@ -4,6 +4,8 @@
         "wiki": "webpack serve --open --mode development -c demo/wiki/webpack.mjs"
     },
     "dependencies": {
+        "@mdx-js/loader": "^2.1.1",
+        "@mdx-js/react": "^2.1.1",
         "@types/react": "^17.0.40",
         "@types/react-dom": "^17.0.13",
         "@types/react-router-dom": "^5.3.3",

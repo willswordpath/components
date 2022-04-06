@@ -1,6 +1,6 @@
 import React from 'react'
-import { DocsRoute } from '@teambit/docs.entities.docs-routes'
-import Welcome from '@teambit/wiki.content.welcome'
+import { DocsRoute } from '../route-docs'
+import { Welcome } from '../content-welcome'
 
 export const primaryRoutes: DocsRoute[] = [
     {
