@@ -3,7 +3,6 @@ import React, { useMemo } from 'react'
 import classNames from 'classnames'
 import { Switch, Route } from 'react-router-dom'
 
-// import { DocsRoute, DocsRoutes } from '@teambit/docs.entities.docs-routes'
 import { NotFound } from '@teambit/community.ui.pages.errors.not-found'
 
 import { DocsRoute, DocsRoutes } from '../route-docs'
@@ -32,6 +31,7 @@ export interface ContentCategory {
 
 export interface DocsProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
     /**
+     * USE_MEMO
      * an array of routes category.
      */
     contents?: ContentCategory[];
@@ -42,6 +42,7 @@ export interface DocsProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
     baseUrl?: string;
 
     /**
+     * USE_MEMO
      * primary links to be presented in the top of the sidebar.
      */
     primaryLinks?: DocsRoute[];
@@ -52,22 +53,35 @@ export interface DocsProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
     plugins?: DocsPlugin[];
 }
 
-export function Docs({ contents, primaryLinks = [], baseUrl, plugins = [], className, ...rest }: DocsProps) {
-    const primaryRoutes = DocsRoutes.from(primaryLinks, baseUrl)
-    const contentRoutes = contents?.map((category) => {
-        return {
-            title: category.title,
-            routes: DocsRoutes.from(category.routes || [], baseUrl),
-            className: category.className,
-        }
-    })
+const defaultPrimaryLinks: DocsRoute[] = []
 
-    const routeArray = useMemo(() => {
+export function Docs({ contents, primaryLinks = defaultPrimaryLinks, baseUrl, plugins = [], className, ...rest }: DocsProps) {
+
+    const {
+        primaryRoutes,
+        contentRoutes,
+        routeArray
+    } = useMemo(() => {
+        const primaryRoutes = DocsRoutes.from(primaryLinks, baseUrl)
+
+        const contentRoutes = contents?.map((category) => {
+            return {
+                title: category.title,
+                routes: DocsRoutes.from(category.routes || [], baseUrl),
+                className: category.className,
+            }
+        })
+
         const pRoutes = primaryRoutes.getRoutes()
         const cRoutes = contentRoutes?.map((category) => category.routes.getRoutes()) || []
+        const routeArray = pRoutes.concat(...cRoutes)
 
-        return pRoutes.concat(...cRoutes)
-    }, [primaryRoutes, contentRoutes])
+        return {
+            primaryRoutes,
+            contentRoutes,
+            routeArray
+        }
+    }, [primaryLinks, baseUrl, contents])
 
     return (
         <DocsContext.Provider
@@ -79,7 +93,9 @@ export function Docs({ contents, primaryLinks = [], baseUrl, plugins = [], class
             }}
         >
             <div {...rest} className={classNames(style.main, className)}>
+
                 <Sidebar primaryLinks={primaryRoutes.toSideBarTree()} sections={contentRoutes} />
+
                 <div className={style.content}>
                     <Switch>
                         {routeArray.map((route, key) => {
@@ -102,6 +118,7 @@ export function Docs({ contents, primaryLinks = [], baseUrl, plugins = [], class
 
                     </Switch>
                 </div>
+
             </div>
         </DocsContext.Provider>
     )

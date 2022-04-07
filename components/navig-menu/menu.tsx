@@ -1,7 +1,7 @@
-import React, { ReactNode, ComponentType } from 'react';
-import classNames from 'classnames';
-import { TabLink, TabLinkProps } from '../navig-tab-link';
-import style from './menu.scss';
+import React, { ReactNode, ComponentType } from 'react'
+import classNames from 'classnames'
+import { TabLink, TabLinkProps } from '../navig-tab-link'
+import style from './menu.scss'
 
 export type NavLinkType = {
     /**
@@ -56,8 +56,8 @@ export function NavigationMenu({ links = [], className, Link = TabLink, ...rest 
                     >
                         {link.title}
                     </Link>
-                );
+                )
             })}
         </div>
-    );
+    )
 }

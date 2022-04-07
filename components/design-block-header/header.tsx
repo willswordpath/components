@@ -1,15 +1,15 @@
-import style from './header.scss';
+import style from './header.scss'
 
-import React, { ComponentType } from 'react';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames';
-import { NavigationMenu, NavigationMenuProps, NavLinkType } from '../navig-menu';
+import React, { ComponentType } from 'react'
+import { Link } from 'react-router-dom'
+import classNames from 'classnames'
+import { NavigationMenu, NavigationMenuProps, NavLinkType } from '../navig-menu'
 
 
-import { Logo, LogoProps } from '@teambit/design.ui.brand.logo';
-import { wideColumn } from '../page-column';
+import { Logo, LogoProps } from '@teambit/design.ui.brand.logo'
+import { wideColumn } from '../page-column'
 
-export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
+export interface HeaderProps extends Omit<React.HTMLAttributes<HTMLElement>, 'children'> {
     /**
      * a list of links to be displayed in this header
      */
@@ -36,7 +36,6 @@ export function Header({
     OverrideLogo = Logo,
     menuLinks,
     plugins,
-    children,
     className,
     ...restProps
 }: HeaderProps) {

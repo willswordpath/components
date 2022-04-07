@@ -1,6 +1,6 @@
 import { useContext, createContext } from 'react'
 import { Route, DocsRoutes } from '../route-docs'
-import { DocsPlugin } from '@teambit/docs.plugins.docs-plugin'
+import { DocsPlugin } from '../plugin-docs'
 
 export type DocsContextProps = {
     /**

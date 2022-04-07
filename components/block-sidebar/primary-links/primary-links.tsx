@@ -2,7 +2,7 @@ import style from './primary-links.scss'
 
 import React from 'react'
 import classNames from 'classnames'
-import { Link } from '@teambit/base-react.navigation.link'
+import { TabLink } from '../../navig-tab-link'
 import { classes } from '@teambit/design.ui.surfaces.menu.item'
 import { Icon } from '@teambit/design.elements.icon'
 
@@ -20,16 +20,17 @@ export function PrimaryLinks({ links }: { links: SidebarTreeNode }) {
 
                 // TODO - use @teambit/design.ui.surfaces.menu.link-item when it uses the new navigation system
                 return (
-                    <Link
+                    <TabLink
                         key={link.id}
-                        href={href}
+                        // TODO
+                        to={href || '/'}
                         className={classNames(classes.menuItem, !!href && classes.interactive)}
                         activeClassName={classes.active}
                         exact
                     >
                         {icon && <Icon of={icon} className={classes.icon} />}
                         {link.payload?.title}
-                    </Link>
+                    </TabLink>
                 )
             })}
         </div>

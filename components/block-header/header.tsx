@@ -1,15 +1,15 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes } from 'react'
 import { headerLinks } from './links'
 import { Header as DesignHeader } from '../design-block-header'
 
 import { Dropdown } from '@teambit/design.ui.dropdown'
-import { dropdownList, dropdownListWithLongNames } from './dropdown.mock';
-import { menuTransition } from '@teambit/design.ui.css.menu-transition';
-import { hoverable } from '@teambit/design.ui.hoverable';
-import classNames from 'classnames';
-import { Ellipsis } from '@teambit/design.ui.styles.ellipsis';
-import { UserAvatar, OrgAvatar } from '@teambit/design.ui.avatar';
-import styles from './item.module.scss';
+import { dropdownList, dropdownListWithLongNames } from './dropdown.mock'
+import { menuTransition } from '@teambit/design.ui.css.menu-transition'
+import { hoverable } from '@teambit/design.ui.hoverable'
+import classNames from 'classnames'
+import { Ellipsis } from '@teambit/design.ui.styles.ellipsis'
+import { UserAvatar, OrgAvatar } from '@teambit/design.ui.avatar'
+import styles from './item.module.scss'
 
 export type ItemProps = {
     image?: string;
@@ -28,14 +28,14 @@ export function Item({ image, name, className, isActive, accountType = 'user', .
             )}
             <Ellipsis>{name}</Ellipsis>
         </div>
-    );
+    )
 }
 
 
 const activeOption = {
     image: 'https://static.bit.dev/bit-logo.svg',
     name: 'teambit',
-};
+}
 export function DropdownExample() {
     return (
         <Dropdown menuClass={menuTransition} placeholder={false} placeholderTitle={<Item {...activeOption} />}>
@@ -49,11 +49,11 @@ export function DropdownExample() {
                 />
             ))}
         </Dropdown>
-    );
+    )
 }
 
 
 
 export function Header() {
-    return <DesignHeader menuLinks={headerLinks} plugins={[DropdownExample]} />;
+    return <DesignHeader menuLinks={headerLinks} plugins={[DropdownExample]} />
 }
