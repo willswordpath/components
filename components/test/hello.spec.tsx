@@ -3,7 +3,6 @@ import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
 
 import Hello from './hello'
-import type { HelloProps } from './hello'
 
 let container: HTMLDivElement
 
