@@ -134,7 +134,9 @@ export default {
     // slowTestThreshold: 5,
 
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-    // snapshotSerializers: [],
+    snapshotSerializers: [
+        'jest-serializer-html'
+    ],
 
     // The test environment that will be used for testing
     testEnvironment: 'jsdom',
