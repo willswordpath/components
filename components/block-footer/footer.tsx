@@ -1,6 +1,8 @@
+import style from './footer.scss'
 import React, { ReactNode } from 'react'
 import { Footer as DesignFooter } from '../design-block-footer'
 import { footerLinks } from './footer-links'
+import classNames from 'classnames'
 
 export type FooterProps = {
     /**
@@ -11,7 +13,7 @@ export type FooterProps = {
 
 export function Footer({ children }: FooterProps) {
     return (
-        <DesignFooter categoryList={footerLinks}>
+        <DesignFooter categoryList={footerLinks} className={classNames(style.footer)}>
             {children}
         </DesignFooter>
     )

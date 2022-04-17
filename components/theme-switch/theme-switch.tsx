@@ -6,6 +6,7 @@ import { themeSwitchContext } from './theme-switch-context'
 export interface ThemeSwitchProps extends BaseThemeProps {
     availableThemes?: ThemeOption[]
     initialTheme?: ThemeName
+    innerRef: React.RefObject<HTMLDivElement>
 }
 
 export const basicThemes: ThemeOption[] = [
@@ -22,6 +23,7 @@ export function ThemeSwitch({
     initialTheme,
     children,
     override,
+    innerRef,
     ...props
 }: ThemeSwitchProps) {
 
@@ -38,7 +40,7 @@ export function ThemeSwitch({
     }
 
     return <themeSwitchContext.Provider value={switchData}>
-        <BaseTheme override={{...theme.override, ...override}} {...props}>{children}</BaseTheme>
+        <BaseTheme innerRef={innerRef} override={{ ...theme.override, ...override }} {...props}>{children}</BaseTheme>
     </themeSwitchContext.Provider>
 
 }

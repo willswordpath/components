@@ -12,13 +12,13 @@ export interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Footer({ categoryList, className, children, ...rest }: FooterProps) {
     return (
-        <div {...rest} className={classNames(styles.footer, className)}>
+        <footer {...rest} className={classNames(styles.footer, className)}>
             <div className={styles.footerLinks}>
                 {categoryList.map((category) => {
                     return <Category {...category} key={category.title} className={styles.footerCategory} />
                 })}
             </div>
             <div className={styles.bottom}>{children}</div>
-        </div>
+        </footer>
     )
 }

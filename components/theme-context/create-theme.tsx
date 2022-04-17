@@ -36,6 +36,7 @@ export function createTheme<ThemeSchema>(options: CreateThemeOptions<ThemeSchema
  */
 export interface ThemeProviderProps<ThemeSchema> extends React.HTMLAttributes<HTMLDivElement> {
     override?: Partial<ThemeSchema>
+    innerRef: React.RefObject<HTMLDivElement>
 }
 
 /**
@@ -53,7 +54,7 @@ function createThemeProvider<ThemeSchema>(
     Provider: React.Provider<ThemeSchema>,
     options: CreateThemeOptions<ThemeSchema>
 ): ThemeProviderComponent<ThemeSchema> {
-    return ({ children, override, style, ...rest }: ThemeProviderProps<ThemeSchema>) => {
+    return function ThemeProvider({ children, override, style, innerRef, ...rest }: ThemeProviderProps<ThemeSchema>) {
         const theme = useMemo(
             () => {
                 const theme = {
@@ -66,7 +67,7 @@ function createThemeProvider<ThemeSchema>(
             },
             [override]
         )
-        return <div style={{ ...theme.cssVars, ...style }} {...rest}>
+        return <div style={{ ...theme.cssVars, ...style }} {...rest} ref={innerRef}>
             <Provider value={theme.theme}> {children} </Provider>
         </div>
     }
@@ -76,12 +77,12 @@ export function computeCssVars<ThemeSchema>(theme: ThemeSchema, prefix?: string)
     const accumulator: { [index: string]: string | number } = {}
     return Object.entries(theme)
         .map<[string, any]>(([key, val]) => {
-            const varName = key.replace(/[A-Z]/g, '-$&').toLowerCase();
-            const varKey = prefix ? `--${prefix}-${varName}` : `--${varName}`;
-            return [varKey, val];
+            const varName = key.replace(/[A-Z]/g, '-$&').toLowerCase()
+            const varKey = prefix ? `--${prefix}-${varName}` : `--${varName}`
+            return [varKey, val]
         })
         .reduce((acc, [key, val]) => {
-            acc[key] = val;
-            return acc;
-        }, accumulator);
+            acc[key] = val
+            return acc
+        }, accumulator)
 }

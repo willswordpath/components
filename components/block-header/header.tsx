@@ -52,8 +52,17 @@ export function DropdownExample() {
     )
 }
 
+export interface HeaderProps {
+    hidden: boolean
+    stickyTop: number
+}
 
+const HeaderHeight = 60
+export function Header({ hidden, stickyTop }: HeaderProps) {
+    return <DesignHeader style={{
+        position: 'sticky',
+        height: HeaderHeight,
+        top: hidden ? -HeaderHeight : stickyTop,
 
-export function Header() {
-    return <DesignHeader menuLinks={headerLinks} plugins={[DropdownExample]} />
+    }} menuLinks={headerLinks} plugins={[DropdownExample]} />
 }
