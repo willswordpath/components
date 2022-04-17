@@ -3,7 +3,7 @@ import { headerLinks } from './links'
 import { Header as DesignHeader } from '../design-block-header'
 
 import { Dropdown } from '@teambit/design.ui.dropdown'
-import { dropdownList, dropdownListWithLongNames } from './dropdown.mock'
+import { dropdownList } from './dropdown.mock'
 import { menuTransition } from '@teambit/design.ui.css.menu-transition'
 import { hoverable } from '@teambit/design.ui.hoverable'
 import classNames from 'classnames'
@@ -54,15 +54,15 @@ export function DropdownExample() {
 
 export interface HeaderProps {
     hidden: boolean
-    stickyTop: number
 }
 
 const HeaderHeight = 60
-export function Header({ hidden, stickyTop }: HeaderProps) {
+export function Header({ hidden }: HeaderProps) {
     return <DesignHeader style={{
         position: 'sticky',
+        zIndex: 1,
         height: HeaderHeight,
-        top: hidden ? -HeaderHeight : stickyTop,
-
+        top: hidden ? -HeaderHeight : 0,
+        transition: 'top .5s'
     }} menuLinks={headerLinks} plugins={[DropdownExample]} />
 }

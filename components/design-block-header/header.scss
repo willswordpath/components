@@ -5,7 +5,9 @@
   height: var(--bit-header-height, 40px);
   display: flex;
   font-size: 14px;
-  border-bottom: 1px solid var(--bit-border-color-lightest, #ededed);
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--border-high-color, #ededed);
+  background-color: var(--background-color);
 }
 
 .headerContent {
