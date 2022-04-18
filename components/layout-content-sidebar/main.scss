@@ -1,13 +1,21 @@
 .main {
-    overflow: auto;
+    display: flex;
+}
+
+.content {
 }
 
 .sidebar {
     position: sticky;
     top: 200px;
     bottom: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
 
-    width: 100px;
+    flex-basis: 300px;
+    flex-shrink: 0;
+
     height: 300px;
     background-color: burlywood;
 }

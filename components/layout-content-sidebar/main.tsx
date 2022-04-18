@@ -5,14 +5,11 @@ import classNames from 'classnames'
 
 export function Main() {
     return <main className={classNames(style.main)}>
-        <div>
-            <Welcome />
-        </div>
 
         <div className={classNames(style.sidebar)}>
         </div>
 
-        <div>
+        <div className={classNames(style.content)}>
             <Welcome />
         </div>
     </main>
